@@ -8,158 +8,214 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: sans-serif; background: #f9f9f9; }
 
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes breathe {
+      0%,100% { transform: scale(1);    filter: drop-shadow(0 0 14px #00B4D8aa); }
+      50%      { transform: scale(1.12); filter: drop-shadow(0 0 32px #00B4D8ee); }
+    }
+    @keyframes glowPulse {
+      0%,100% { filter: drop-shadow(0 0 6px #00B4D888); }
+      50%      { filter: drop-shadow(0 0 22px #00B4D8cc); }
+    }
+
+    /* HEADER */
     header {
-      background: #111;
-      padding: 20px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-      border-bottom: 4px solid #00B4D8;
-    }
-    header h1 { font-size: 2rem; letter-spacing: 3px; }
-    header p { font-size: 0.8rem; color: #aaa; letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
-    nav { display: flex; gap: 24px; }
-    nav a { color: #ccc; text-decoration: none; font-size: 0.9rem; font-weight: 600; }
-    nav a:hover { color: #FFD600; }
-
-    .hero {
-      background: linear-gradient(135deg, #111 0%, #222 50%, #1a1a1a 100%);
-      color: #fff;
-      text-align: center;
-      padding: 90px 40px;
-      position: relative;
-      overflow: hidden;
-    }
-    .blob { position: absolute; border-radius: 50%; filter: blur(40px); }
-    .blob-cyan    { width:220px; height:220px; background:#00B4D8; opacity:0.15; top:-60px; left:-60px; }
-    .blob-magenta { width:200px; height:200px; background:#FF006E; opacity:0.18; bottom:-40px; right:-40px; }
-    .blob-yellow  { width:160px; height:160px; background:#FFD600; opacity:0.12; top:40%; left:50%; filter:blur(50px); }
-    .hero h2 { font-size: 3rem; font-weight: 900; line-height: 1.2; margin-bottom: 16px; position: relative; }
-    .hero p  { font-size: 1.15rem; color: #ccc; max-width: 580px; margin: 0 auto 36px; position: relative; }
-    .btn-hero {
-      background: #FF006E;
-      color: #fff;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,10,10,0.97);
+      border-bottom: 3px solid #00B4D8;
       padding: 14px 40px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1rem;
-      box-shadow: 0 4px 20px #FF006E66;
-      position: relative;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 10px;
+      backdrop-filter: blur(10px);
+      animation: fadeDown 0.6s ease;
+      transition: padding 0.35s ease;
     }
+    header.slim { padding: 8px 40px; }
+    .logo-area { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+    .logo-area img {
+      width: 72px; height: 72px; object-fit: contain;
+      animation: glowPulse 3s ease-in-out infinite;
+      transition: width 0.35s, height 0.35s;
+    }
+    header.slim .logo-area img { width: 52px; height: 52px; }
+    .brand-name { font-size: 1.65rem; font-weight: 900; letter-spacing: 2px; line-height: 1; transition: font-size 0.35s; }
+    header.slim .brand-name { font-size: 1.25rem; }
+    .brand-sub { font-size: 0.7rem; color: #aaa; letter-spacing: 2px; text-transform: uppercase; }
+    header.slim .brand-sub { display: none; }
+    nav { display: flex; gap: 28px; }
+    nav button {
+      background: none; border: none; cursor: pointer;
+      color: #ccc; font-size: 0.9rem; font-weight: 700;
+      transition: color 0.2s;
+    }
+    nav button:hover { color: #FFD600; }
 
-    .color-bar { display: flex; height: 8px; }
+    .spacer { height: 86px; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #111 0%, #1c1c2e 55%, #1a1a1a 100%);
+      color: #fff; text-align: center; padding: 60px 40px 90px;
+      position: relative; overflow: hidden;
+    }
+    .blob { position: absolute; border-radius: 50%; }
+    .blob-c { width:280px; height:280px; background:#00B4D8; opacity:0.12; filter:blur(55px); top:-80px; left:-80px; }
+    .blob-m { width:260px; height:260px; background:#FF006E; opacity:0.15; filter:blur(55px); bottom:-60px; right:-60px; }
+    .blob-y { width:200px; height:200px; background:#FFD600; opacity:0.10; filter:blur(60px); top:35%; left:48%; }
+    .hero-logo { width: 280px; height: 280px; margin: 0 auto 16px; }
+    .hero-logo img { width:100%; height:100%; object-fit:contain; animation: breathe 3.5s ease-in-out infinite; }
+    .hero h2 { font-size: 3.2rem; font-weight: 900; line-height: 1.2; margin-bottom: 18px; animation: fadeUp 0.9s 0.2s both; }
+    .hero p  { font-size: 1.15rem; color: #ccc; max-width: 580px; margin: 0 auto 40px; animation: fadeUp 0.9s 0.4s both; }
+    .hero-cta { animation: fadeUp 0.9s 0.6s both; }
+    .btn-wa {
+      background: #FF006E; color: #fff; padding: 14px 44px; border-radius: 8px;
+      text-decoration: none; font-weight: 800; font-size: 1rem;
+      box-shadow: 0 4px 24px #FF006E55; display: inline-block;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-wa:hover { transform: scale(1.05); box-shadow: 0 6px 30px #FF006E99; }
+
+    /* COLOR BARS */
+    .color-bar { display: flex; height: 7px; }
     .color-bar .c { flex: 1; }
-    .c-cyan    { background: #00B4D8; }
-    .c-magenta { background: #FF006E; }
-    .c-yellow  { background: #FFD600; }
+    .c-c { background: #00B4D8; }
+    .c-m { background: #FF006E; }
+    .c-y { background: #FFD600; }
 
-    .services { padding: 70px 40px; text-align: center; }
-    .services h3 { font-size: 1.9rem; font-weight: 800; color: #111; margin-bottom: 10px; }
-    .services > p { color: #666; margin-bottom: 48px; }
+    /* SERVICES */
+    .services { padding: 80px 40px; text-align: center; }
+    .services h3 { font-size: 2rem; font-weight: 900; color: #111; margin-bottom: 10px; }
+    .services > p { color: #777; margin-bottom: 52px; }
     .cards { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
     .card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 36px 24px;
-      flex: 1 1 200px;
-      max-width: 240px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      background: #fff; border-radius: 14px; padding: 38px 24px;
+      flex: 1 1 200px; max-width: 250px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .card.top-cyan    { border-top: 4px solid #00B4D8; }
-    .card.top-magenta { border-top: 4px solid #FF006E; }
-    .card.top-yellow  { border-top: 4px solid #FFD600; }
-    .card .icon { font-size: 2.5rem; margin-bottom: 14px; }
-    .card h4 { font-size: 1.05rem; font-weight: 700; color: #111; margin-bottom: 10px; }
-    .card p  { font-size: 0.88rem; color: #666; line-height: 1.6; }
+    .card:hover { transform: translateY(-8px); }
+    .card-c { border-top: 5px solid #00B4D8; box-shadow: 0 4px 16px rgba(0,0,0,0.07), 0 0 40px #00B4D833; }
+    .card-m { border-top: 5px solid #FF006E; box-shadow: 0 4px 16px rgba(0,0,0,0.07), 0 0 40px #FF006E33; }
+    .card-y { border-top: 5px solid #FFD600; box-shadow: 0 4px 16px rgba(0,0,0,0.07), 0 0 40px #FFD60033; }
+    .card:hover.card-c { box-shadow: 0 18px 42px rgba(0,0,0,0.14), 0 0 55px #00B4D844; }
+    .card:hover.card-m { box-shadow: 0 18px 42px rgba(0,0,0,0.14), 0 0 55px #FF006E44; }
+    .card:hover.card-y { box-shadow: 0 18px 42px rgba(0,0,0,0.14), 0 0 55px #FFD60044; }
+    .card .icon { font-size: 2.8rem; margin-bottom: 16px; }
+    .card h4 { font-size: 1.05rem; font-weight: 800; color: #111; margin-bottom: 10px; }
+    .card p  { font-size: 0.88rem; color: #666; line-height: 1.7; }
 
-    .why { background: #111; color: #fff; padding: 70px 40px; text-align: center; }
-    .why h3 { font-size: 1.9rem; font-weight: 800; margin-bottom: 12px; }
-    .why > p { color: #aaa; max-width: 560px; margin: 0 auto 50px; }
+    /* WHY US */
+    .why { background: #111; color: #fff; padding: 80px 40px; text-align: center; }
+    .why h3 { font-size: 2rem; font-weight: 900; margin-bottom: 14px; }
+    .why > p { color: #aaa; max-width: 560px; margin: 0 auto 56px; }
     .stats { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
-    .stat .num   { font-size: 2.5rem; font-weight: 900; }
+    .stat .num   { font-size: 2.8rem; font-weight: 900; }
     .stat .label { color: #bbb; font-size: 0.9rem; margin-top: 8px; }
 
-    .contact { padding: 70px 40px; text-align: center; background: #f9f9f9; }
-    .contact h3 { font-size: 1.9rem; font-weight: 800; color: #111; margin-bottom: 12px; }
-    .contact > p { color: #555; margin-bottom: 32px; }
-    .contact-items {
+    /* CONTACT */
+    .contact { padding: 80px 40px; text-align: center; background: #f4f4f4; }
+    .contact h3 { font-size: 2rem; font-weight: 900; color: #111; margin-bottom: 12px; }
+    .contact > p { color: #666; margin-bottom: 36px; }
+    .contact-info {
       display: flex; gap: 36px; justify-content: center;
-      flex-wrap: wrap; font-size: 0.95rem; color: #333; margin-bottom: 32px;
+      flex-wrap: wrap; font-size: 0.95rem; color: #333; margin-bottom: 36px;
     }
-    .contact-items span { display: flex; align-items: center; gap: 8px; }
-    .btn-maps {
-      display: inline-flex; align-items: center; gap: 10px;
-      background: #111; color: #fff;
-      padding: 12px 28px; border-radius: 8px;
+    .contact-info span { display: flex; align-items: center; gap: 8px; }
+    .contact-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 48px; }
+    .btn-wa-green {
+      background: #25D366; color: #fff; padding: 12px 28px; border-radius: 8px;
       text-decoration: none; font-weight: 700; font-size: 0.95rem;
-      border: 2px solid #00B4D8;
-      box-shadow: 0 4px 16px #00B4D833;
+      box-shadow: 0 4px 16px #25D36644; display: inline-block;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
+    .btn-wa-green:hover { transform: scale(1.05); }
+    .btn-maps {
+      background: #111; color: #fff; padding: 12px 28px; border-radius: 8px;
+      text-decoration: none; font-weight: 700; font-size: 0.95rem;
+      border: 2px solid #00B4D8; display: inline-block;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .btn-maps:hover { background: #00B4D8; transform: scale(1.04); }
+    .logo-completo { max-width: 380px; width: 85%; display: block; margin: 0 auto; }
 
-    footer { background: #1a1a1a; color: #555; text-align: center; padding: 22px; font-size: 0.85rem; }
+    /* FOOTER */
+    footer { background: #0a0a0a; color: #444; text-align: center; padding: 28px; font-size: 0.85rem; }
+    .footer-logo { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px; }
+    .footer-logo img { width: 32px; height: 32px; object-fit: contain; }
   </style>
 </head>
 <body>
 
   <!-- HEADER -->
-  <header>
-    <div>
-      <h1>
-        <span style="color:#00B4D8">VISION</span><span style="color:#FF006E"> GRÁ</span><span style="color:#FFD600">FICA</span>
-      </h1>
-      <p>Imprenta &amp; Diseño Gráfico</p>
+  <header id="mainHeader">
+    <div class="logo-area" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+      <img src="logo.png" alt="Logo">
+      <div>
+        <div class="brand-name">
+          <span style="color:#00B4D8">VISION</span><span style="color:#FF006E"> GRÁ</span><span style="color:#FFD600">FICA</span>
+        </div>
+        <div class="brand-sub">Imprenta &amp; Diseño Gráfico</div>
+      </div>
     </div>
     <nav>
-      <a href="#">Inicio</a>
-      <a href="#">Servicios</a>
-      <a href="#">Trabajos</a>
-      <a href="https://wa.me/970435135" target="_blank" rel="noopener noreferrer">Contacto</a>
+      <button onclick="window.scrollTo({top:0,behavior:'smooth'})">Inicio</button>
+      <button onclick="document.getElementById('servicios').scrollIntoView({behavior:'smooth'})">Servicios</button>
+      <button onclick="document.getElementById('trabajos').scrollIntoView({behavior:'smooth'})">Trabajos</button>
+      <button onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Contacto</button>
     </nav>
   </header>
 
+  <div class="spacer" id="inicio"></div>
+
   <!-- HERO -->
   <section class="hero">
-    <div class="blob blob-cyan"></div>
-    <div class="blob blob-magenta"></div>
-    <div class="blob blob-yellow"></div>
+    <div class="blob blob-c"></div>
+    <div class="blob blob-m"></div>
+    <div class="blob blob-y"></div>
+    <div class="hero-logo">
+      <img src="logo.png" alt="Logo Visión Gráfica">
+    </div>
     <h2>Tu visión, <span style="color:#00B4D8">nuestra</span> <span style="color:#FF006E">impresión</span></h2>
-    <p>Diseño gráfico profesional e impresión de alta calidad para empresas y emprendedores.</p>
-    <a href="https://wa.me/970435135" target="_blank" rel="noopener noreferrer" class="btn-hero">
-      Solicitar cotización
-    </a>
+    <p>Diseño gráfico profesional e impresión de alta calidad para empresas y emprendedores en Lima, Perú.</p>
+    <div class="hero-cta">
+      <a href="https://wa.me/970435135" target="_blank" rel="noopener noreferrer" class="btn-wa">
+        💬 Solicitar cotización
+      </a>
+    </div>
   </section>
 
   <!-- COLOR BAR -->
   <div class="color-bar">
-    <div class="c c-cyan"></div>
-    <div class="c c-magenta"></div>
-    <div class="c c-yellow"></div>
+    <div class="c c-c"></div><div class="c c-m"></div><div class="c c-y"></div>
   </div>
 
   <!-- SERVICES -->
-  <section class="services">
+  <section class="services" id="servicios">
     <h3>Nuestros Servicios</h3>
     <p>Todo lo que necesitas para comunicar tu marca con impacto</p>
     <div class="cards">
-      <div class="card top-cyan">
+      <div class="card card-c">
         <div class="icon">🖨️</div>
         <h4>Impresión Digital</h4>
         <p>Tarjetas, folletos, afiches, banners y más con colores vibrantes.</p>
       </div>
-      <div class="card top-magenta">
+      <div class="card card-m">
         <div class="icon">🎨</div>
         <h4>Diseño Gráfico</h4>
         <p>Logotipos, identidad de marca, publicidad y material corporativo.</p>
       </div>
-      <div class="card top-yellow">
+      <div class="card card-y">
         <div class="icon">📦</div>
         <h4>Empaques y Etiquetas</h4>
         <p>Diseño e impresión de empaques personalizados para tu producto.</p>
       </div>
-      <div class="card top-cyan">
+      <div class="card card-c">
         <div class="icon">🖼️</div>
         <h4>Gran Formato</h4>
         <p>Lonas, vallas publicitarias, roll-ups y señalética exterior.</p>
@@ -168,57 +224,54 @@
   </section>
 
   <!-- WHY US -->
-  <section class="why">
+  <section class="why" id="trabajos">
     <h3>¿Por qué elegirnos?</h3>
     <p>Combinamos creatividad, tecnología y compromiso para entregar resultados que superan tus expectativas.</p>
     <div class="stats">
-      <div class="stat">
-        <div class="num" style="color:#00B4D8">10+</div>
-        <div class="label">Años de experiencia</div>
-      </div>
-      <div class="stat">
-        <div class="num" style="color:#FF006E">500+</div>
-        <div class="label">Clientes satisfechos</div>
-      </div>
-      <div class="stat">
-        <div class="num" style="color:#FFD600">24h</div>
-        <div class="label">Entrega express</div>
-      </div>
-      <div class="stat">
-        <div class="num" style="color:#00B4D8">100%</div>
-        <div class="label">Calidad garantizada</div>
-      </div>
+      <div class="stat"><div class="num" style="color:#00B4D8">10+</div><div class="label">Años de experiencia</div></div>
+      <div class="stat"><div class="num" style="color:#FF006E">500+</div><div class="label">Clientes satisfechos</div></div>
+      <div class="stat"><div class="num" style="color:#FFD600">24h</div><div class="label">Entrega express</div></div>
+      <div class="stat"><div class="num" style="color:#00B4D8">100%</div><div class="label">Calidad garantizada</div></div>
     </div>
   </section>
 
-  <!-- COLOR BAR (invertido) -->
+  <!-- COLOR BAR reversed -->
   <div class="color-bar">
-    <div class="c c-yellow"></div>
-    <div class="c c-magenta"></div>
-    <div class="c c-cyan"></div>
+    <div class="c c-y"></div><div class="c c-m"></div><div class="c c-c"></div>
   </div>
 
   <!-- CONTACT -->
-  <section class="contact">
+  <section class="contact" id="contacto">
     <h3>Contáctanos</h3>
     <p>Estamos listos para hacer realidad tu proyecto.</p>
-    <div class="contact-items">
-      <span><span style="color:#00B4D8;font-size:1.2rem">📞</span> 970 435 135</span>
-      <span><span style="color:#FF006E;font-size:1.2rem">📧</span> richardtorres@gmail.com</span>
-      <span><span style="color:#FFD600;font-size:1.2rem">📍</span> Lima, Perú</span>
+    <div class="contact-info">
+      <span><span style="color:#00B4D8;font-size:1.3rem">📞</span> 970 435 135</span>
+      <span><span style="color:#FF006E;font-size:1.3rem">📧</span> richardtorres@gmail.com</span>
+      <span><span style="color:#FFD600;font-size:1.3rem">📍</span> Lima, Perú</span>
     </div>
-    <a href="https://google.com/maps/@-12.0427658,-77.0438008,3a,75y,296.63h,83.96t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgID47KToeA!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFfmt2Zxb4Lu3BVzbETJMwRmVzJmLwAq32PYB1Budb-BncEhEDUXjMnGVnfcxL-ZmCpYrC1Pr6zMI_QvGxwQU4Mz71RADKPmCV5GTvIGgWS2Hs5uknF3YT4LJsL55XaHwYhW1WCdGsKl%3Dw900-h600-k-no-pi6.037863241245034-ya214.6261768653569-ro0-fo100!7i6656!8i3328?entry=ttu&g_ep=EgoyMDI2MDMxOC4xIKXMDSoASAFQAw%3D%3D"
-       target="_blank" rel="noopener noreferrer" class="btn-maps">
-      🗺️ Ver en Google Maps
-    </a>
+    <div class="contact-btns">
+      <a href="https://wa.me/970435135" target="_blank" rel="noopener noreferrer" class="btn-wa-green">💬 Escribir por WhatsApp</a>
+      <a href="https://google.com/maps/@-12.0427658,-77.0438008,3a,75y,296.63h,83.96t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgID47KToeA!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAFfmt2Zxb4Lu3BVzbETJMwRmVzJmLwAq32PYB1Budb-BncEhEDUXjMnGVnfcxL-ZmCpYrC1Pr6zMI_QvGxwQU4Mz71RADKPmCV5GTvIGgWS2Hs5uknF3YT4LJsL55XaHwYhW1WCdGsKl%3Dw900-h600-k-no-pi6.037863241245034-ya214.6261768653569-ro0-fo100!7i6656!8i3328?entry=ttu&g_ep=EgoyMDI2MDMxOC4xIKXMDSoASAFQAw%3D%3D"
+         target="_blank" rel="noopener noreferrer" class="btn-maps">🗺️ Ver en Google Maps</a>
+    </div>
+    <img src="logocompleto.png" alt="Visión Gráfica EIRL" class="logo-completo">
   </section>
 
   <!-- FOOTER -->
   <footer>
-    &copy; 2025
-    <span style="color:#00B4D8">Vision</span><span style="color:#FF006E">Grá</span><span style="color:#FFD600">fica</span>
-    — Todos los derechos reservados.
+    <div class="footer-logo">
+      <img src="logo.png" alt="Logo">
+      <span><span style="color:#00B4D8">Vision</span><span style="color:#FF006E">Grá</span><span style="color:#FFD600">fica</span></span>
+    </div>
+    &copy; 2025 — Todos los derechos reservados.
   </footer>
+
+  <script>
+    const hdr = document.getElementById('mainHeader');
+    window.addEventListener('scroll', () => {
+      hdr.classList.toggle('slim', window.scrollY > 60);
+    });
+  </script>
 
 </body>
 </html>
